@@ -1,23 +1,65 @@
 import { useState } from 'react';
 import style from './App.module.css';
 
-const AppLayout = ({ a, b, setA, setB, sum }) => {
-  return (
-    <div className={style.app}>
-      <div>A: {a}</div>
-      <button onClick={() => setA(a + 1)}>Прибавить 1 к А</button>
-      <div>B: {b}</div>
-      <button onClick={() => setB(b + 1)}>Прибавить 1 к B</button>
-      <div>Сумма A+B: {sum}</div>
-    </div>
-  );
+const initialState = { email: '', login: '', password: '' };
+
+const useStore = () => {
+  const [state, setState] = useState(initialState);
+
+  return {
+    getState: () => state,
+    updateState: (fieldName, newValue) => {
+      setState({ ...state, [fieldName]: newValue });
+    },
+      resetState: ()=> {
+        setState(initialState)
+      }
+  };
+};
+
+const sendData = (formData) => {
+  console.log(formData);
 };
 
 export const App = () => {
-  const [a, setA] = useState(0);
-  const [b, setB] = useState(0);
+  const { getState, updateState, resetState } = useStore();
 
-  const sum = a + b;
-    console.log(sum);
-  return <AppLayout a={a} b={b} setA={setA} setB={setB} sum={sum} />;
+  const onSubmit = (event) => {
+    event.preventDefault();
+    sendData(getState());
+  };
+
+  const { email, login, password } = getState();
+
+  const onChange =({target})=>updateState(target.name, target.value)
+
+  return (
+    <div className={style.app}>
+      <form action="#" onSubmit={onSubmit}>
+        <input
+          type="email"
+          name="email"
+          value={email}
+          placeholder={'Почта'}
+          onChange={onChange}
+        />
+        <input
+          type="text"
+          name="login"
+          value={login}
+          placeholder={'Логин'}
+          onChange={onChange}
+        />
+        <input
+          type="password"
+          name="password"
+          value={password}
+          placeholder={'Пароль'}
+          onChange={onChange}
+        />
+        <button type={'submit'}>Отправить</button>
+        <button type={'button'} onClick={resetState}>Сбросить</button>
+      </form>
+    </div>
+  );
 };

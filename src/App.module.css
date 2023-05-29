@@ -3,9 +3,14 @@
 }
 
 
-.appLabel {
-    color: crimson;
-    font-weight: 600;
-    text-decoration: underline;
+input {
+    margin-top: 30px;
 }
 
+.content {
+    display: none;
+}
+
+input[type='checkbox']:checked+.content {
+    display: block;
+}
