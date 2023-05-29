@@ -1,0 +1,17 @@
+
+.label {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.red {
+    color: crimson;
+}
+
+.purple {
+    color: rebeccapurple;
+}
+
+.choco {
+    color: chocolate;
+}
