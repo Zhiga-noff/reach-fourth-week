@@ -1,32 +1,28 @@
-import { useState } from 'react';
+import Select from 'react-select';
 import style from './App.module.css';
 
-export const Select = () => {
+const productOptions = [
+    { value: 'tv', label: 'Телевизор' },
+    { value: 'smartphone', label: 'Смартфон' },
+    { value: 'laptop', label: 'Ноутбук' },
+];
+const colorsOptions = [
+    { value: 'black', label: 'Черный' },
+    { value: 'silver', label: 'Серебристый' },
+    { value: 'white', label: 'Белый' },
+];
 
-    const [selectedProduct, setSelectedProduct] = useState('tv')
-    const [selectedColors, setSelectedColors] = useState(['black', 'silver'])
+export const Selectel = () => {
 
-    const onSelectedProductChange =({target}) => setSelectedProduct(target.value)
 
-    const onSelectedColorsChange =({target}) => {
-        const newSelectedColors = [...target.selectedOptions]
-            .map(selectedTarget => selectedTarget.value)
-
-        setSelectedColors(newSelectedColors);
-    }
-
-    return (
-        <div className={style.app}>
-            <select  value={selectedProduct} onChange={onSelectedProductChange}>
-                <option value='tv'>Телевизор</option>
-                <option value='smartphone'>Смартфон</option>
-                <option value='laptop'>Ноутбук</option>
-            </select>
-            <select multiple={true} value={selectedColors} onChange={onSelectedColorsChange}>
-                <option value='black'>Черный</option>
-                <option value='silver'>Серебристый</option>
-                <option value='white'>Белый</option>
-            </select>
-        </div>
-    );
+  return (
+    <div className={style.app}>
+      <Select options={productOptions} defaultValue={productOptions[0]} />
+      <Select
+        options={colorsOptions}
+        isMulti={true}
+        defaultValue={[colorsOptions[0], colorsOptions[1]]}
+      />
+    </div>
+  );
 };
